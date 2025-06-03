@@ -1,0 +1,155 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom scrollbar styling */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Touch handling improvements */
+@media (hover: none) {
+  .touch-callout-none {
+    -webkit-touch-callout: none;
+  }
+  
+  .touch-manipulation {
+    touch-action: manipulation;
+  }
+}
+
+/* Improved tap highlight handling */
+@media (hover: none) {
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+/* Safe area insets for modern mobile browsers */
+.safe-top {
+  padding-top: env(safe-area-inset-top);
+}
+
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.safe-left {
+  padding-left: env(safe-area-inset-left);
+}
+
+.safe-right {
+  padding-right: env(safe-area-inset-right);
+}
+
+/* Base styles */
+html {
+  @apply antialiased text-base;
+  text-size-adjust: 100%;
+}
+
+body {
+  @apply min-h-screen bg-gray-50;
+  text-rendering: optimizeLegibility;
+}
+
+/* Add padding to account for fixed header */
+main, 
+.pt-header {
+  padding-top: 5rem; /* Adjust based on your header height */
+}
+
+@media (min-width: 640px) {
+  main,
+  .pt-header {
+    padding-top: 5.5rem; /* Slightly larger for sm breakpoint */
+  }
+}
+
+/* Improved button touch targets */
+button, 
+[role="button"],
+a {
+  @apply touch-manipulation;
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Form element improvements */
+input,
+select,
+textarea {
+  @apply w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 transition-all duration-300;
+  font-size: 16px; /* Prevents zoom on iOS */
+}
+
+/* Modal improvements */
+@media (max-width: 640px) {
+  .modal-mobile-full {
+    @apply fixed inset-0 m-0 rounded-none;
+    width: 100% !important;
+    height: 100% !important;
+  }
+}
+
+/* Loading states */
+.skeleton {
+  @apply animate-pulse bg-gray-200 rounded;
+}
+
+/* Improved mobile navigation */
+.mobile-nav {
+  @apply fixed inset-x-0 bottom-0 bg-white border-t border-gray-200 safe-bottom;
+  height: calc(4rem + env(safe-area-inset-bottom));
+}
+
+/* Better mobile grid layouts */
+.responsive-grid {
+  @apply grid gap-4;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+}
+
+/* Improved mobile tables */
+@media (max-width: 640px) {
+  .responsive-table {
+    @apply block;
+  }
+  
+  .responsive-table thead {
+    @apply hidden;
+  }
+  
+  .responsive-table tbody {
+    @apply block;
+  }
+  
+  .responsive-table tr {
+    @apply block mb-4 rounded-lg border border-gray-200 p-4;
+  }
+  
+  .responsive-table td {
+    @apply block text-right py-2;
+  }
+  
+  .responsive-table td::before {
+    content: attr(data-label);
+    @apply float-left font-medium text-gray-600;
+  }
+}
+
+/* Focus styles */
+:focus-visible {
+  @apply outline-none ring-2 ring-blue-500 ring-offset-2;
+}
+
+/* Print styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}
