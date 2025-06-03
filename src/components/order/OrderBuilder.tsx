@@ -347,6 +347,28 @@ const OrderBuilder: React.FC = () => {
         exit={{ opacity: 0, y: -20 }}
         className="max-w-6xl mx-auto"
       >
+        {/* Order Progress */}
+        <div className="mb-8">
+          <div className="flex items-center justify-between max-w-md mx-auto">
+            {["Select Service", "Add Items", "Checkout"].map((label, index) => {
+              const stepNumber = index + 1;
+              const isActive = (totalItems > 0 ? 2 : 1) >= stepNumber;
+              return (
+                <div key={stepNumber} className="flex-1 flex flex-col items-center">
+                  <div
+                    className={`w-8 h-8 rounded-full flex items-center justify-center ${isActive ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-400'}`}
+                  >
+                    {stepNumber}
+                  </div>
+                  <p className="mt-2 text-xs text-center whitespace-nowrap">{label}</p>
+                  {stepNumber < 3 && (
+                    <div className={`w-full h-0.5 mt-2 ${ (totalItems > 0 ? 2 : 1) > stepNumber ? 'bg-blue-600' : 'bg-gray-200' }`}></div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </div>
         {/* Service Tabs */}
         <div className="mb-6">
           <h1 className="text-2xl font-bold text-gray-900 mb-4">Select Service</h1>
@@ -367,7 +389,7 @@ const OrderBuilder: React.FC = () => {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
-                <div 
+                <div
                   className="w-8 h-8 rounded-lg flex items-center justify-center mr-3 flex-shrink-0"
                   style={{ color: tab.color_hex }}
                 >
@@ -376,6 +398,11 @@ const OrderBuilder: React.FC = () => {
                 <div className="text-left">
                   <h3 className="font-medium text-gray-900 text-sm">{tab.name}</h3>
                 </div>
+                {tab.itemCount > 0 && (
+                  <span className="absolute top-1 right-1 bg-blue-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                    {tab.itemCount}
+                  </span>
+                )}
               </motion.button>
             ))}
           </div>
@@ -390,6 +417,7 @@ const OrderBuilder: React.FC = () => {
                 className="mt-4 p-4 bg-white rounded-xl shadow-sm border border-gray-100"
               >
                 <p className="text-gray-600 text-sm">{activeServiceTab.description}</p>
+                <p className="text-xs text-gray-500 mt-2">Switch services anytime to add items from multiple services.</p>
               </motion.div>
             )}
           </AnimatePresence>
