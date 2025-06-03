@@ -64,4 +64,4 @@ const Loader: React.FC = () => {
   );
 };
 
-export default Loader
+export default Loader;
